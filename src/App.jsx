@@ -246,9 +246,21 @@ function Result({ answer, won, guesses, mode, day }) {
   }, [])
 
   async function share() {
-    const text = shareText({ mode, key: day, guesses, answer, won, url: location.host })
+    const url = location.origin
+    const text = shareText({ mode, key: day, guesses, answer, won, url })
+    // Rich-text version so editors that accept HTML paste a real link.
+    const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    const lines = text.split('\n')
+    const html = [...lines.slice(0, -1).map(esc), `<a href="${url}">${esc(location.host)}</a>`].join('<br>')
     try {
-      await navigator.clipboard.writeText(text)
+      if (window.ClipboardItem) {
+        await navigator.clipboard.write([new ClipboardItem({
+          'text/plain': new Blob([text], { type: 'text/plain' }),
+          'text/html': new Blob([html], { type: 'text/html' }),
+        })])
+      } else {
+        await navigator.clipboard.writeText(text)
+      }
     } catch {
       // Older browsers: copy via a hidden textarea.
       const ta = document.createElement('textarea')
