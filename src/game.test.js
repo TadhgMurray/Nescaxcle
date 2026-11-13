@@ -46,6 +46,7 @@ test('daily answer is stable and cycles through everyone', () => {
 })
 
 test('share text', () => {
-  const t = shareText({ mode: 'M', key: '2026-11-13', guesses: [blumen, maru], answer: maru, won: true })
+  const t = shareText({ mode: 'M', key: '2026-11-13', guesses: [blumen, maru], answer: maru, won: true, url: 'example.vercel.app' })
   assert.match(t, /^Nescaxcle 2026-11-13 \(Men's\) 2\/8\n⬛⬛🟨🟨/)
+  assert.ok(t.endsWith('\nexample.vercel.app'))
 })

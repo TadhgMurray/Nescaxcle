@@ -109,19 +109,26 @@ export default function App() {
           <span className="lbl">Guesses left</span>
           <span className="num">{MAX_GUESSES - guesses.length}</span>
         </div>
-        <button className="left-btn" onClick={() => setShowLeft((v) => !v)} aria-expanded={showLeft}>
-          <span className="lbl">Runners left <span className="caret">{showLeft ? '▴' : '▾'}</span></span>
-          <span className="num">{left.length}</span>
-        </button>
+        {over ? (
+          <button className="left-btn" onClick={() => setShowLeft((v) => !v)} aria-expanded={showLeft}>
+            <span className="lbl">Runners left <span className="caret">{showLeft ? '▴' : '▾'}</span></span>
+            <span className="num">{left.length}</span>
+          </button>
+        ) : (
+          <div>
+            <span className="lbl">Runners left</span>
+            <span className="num">{left.length}</span>
+          </div>
+        )}
       </section>
 
-      {showLeft && (
+      {over && showLeft && (
         <ul className="left-list">
           {left.slice(0, 200).map((r) => (
             <li key={r.id}>
-              <button disabled={over || guessIds.includes(r.id)} onClick={() => guess(r)}>
+              <a href={`https://racecast.co/athlete/${r.id}`} target="_blank" rel="noreferrer">
                 <span>{r.name}</span><span className="muted">{r.college}</span>
-              </button>
+              </a>
             </li>
           ))}
           {left.length > 200 && <li className="muted more">+{left.length - 200} more</li>}
@@ -239,7 +246,7 @@ function Result({ answer, won, guesses, mode, day }) {
   }, [])
 
   async function share() {
-    const text = shareText({ mode, key: day, guesses, answer, won })
+    const text = shareText({ mode, key: day, guesses, answer, won, url: location.host })
     try {
       if (navigator.share && matchMedia('(pointer: coarse)').matches) await navigator.share({ text })
       else {
@@ -301,7 +308,7 @@ function Help() {
         <li><b>–</b> means no college PR. Two dashes match (green).</li>
         <li>PRs are college-only; State is home state from high school.</li>
       </ul>
-      <p className="muted">Tap <b>Runners left</b> to see everyone still consistent with your clues.</p>
+      <p className="muted"><b>Runners left</b> counts everyone still consistent with your clues. When the game ends, tap it to see who they were.</p>
     </div>
   )
 }

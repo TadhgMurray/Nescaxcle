@@ -151,8 +151,8 @@ export function dailyAnswer(pool, mode, key) {
 
 const EMOJI = { green: '🟩', yellow: '🟨', grey: '⬛' }
 
-export function shareText({ mode, key, guesses, answer, won }) {
+export function shareText({ mode, key, guesses, answer, won, url }) {
   const head = `Nescaxcle ${key} (${MODE_LABEL[mode]}) ${won ? guesses.length : 'X'}/${MAX_GUESSES}`
   const rows = guesses.map((g) => compareAll(g, answer).map((f) => EMOJI[f.color]).join(''))
-  return [head, ...rows, 'nescaxcle.vercel.app'].join('\n')
+  return [head, ...rows, url].filter(Boolean).join('\n')
 }

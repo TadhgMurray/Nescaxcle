@@ -15,7 +15,7 @@ Each guess shows eight tiles:
 | Speed Rtg (racecast.co 2026 XC rating) | same | within 1.5 | ↑ higher / ↓ lower |
 | 5K / Mile / 800 PR | same | within 10s / 3s / 1.5s | ↑ slower / ↓ faster |
 
-Arrows point toward the mystery runner's value. PRs count college races only. `–` means no PR, and two `–` tiles count as a match. **Runners left** shows how many runners still fit every clue; tap it to see who they are.
+Arrows point toward the mystery runner's value. PRs count college races only. `–` means no PR, and two `–` tiles count as a match. **Runners left** shows how many runners still fit every clue. The list of names unlocks only once the game is over, so it can't be used as a cheat sheet.
 
 The daily runner changes at midnight US Eastern time. Each pool is walked in a fixed shuffled order, so no runner repeats until the whole pool has been used.
 

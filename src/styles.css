@@ -41,9 +41,8 @@ a { color: inherit; }
 .num { font-family: var(--mono); font-size: 30px; font-weight: 700; }
 
 .left-list { list-style: none; margin: 8px 0 0; padding: 4px; max-height: 260px; overflow: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
-.left-list button, .suggest button { display: flex; justify-content: space-between; gap: 12px; width: 100%; padding: 9px 12px; background: none; border: 0; border-radius: 8px; text-align: left; }
-.left-list button:hover:not(:disabled), .suggest button.hi { background: #262626; }
-.left-list button:disabled { cursor: default; opacity: 0.45; }
+.left-list a, .suggest button { text-decoration: none; display: flex; justify-content: space-between; gap: 12px; width: 100%; padding: 9px 12px; background: none; border: 0; border-radius: 8px; text-align: left; }
+.left-list a:hover, .suggest button.hi { background: #262626; }
 .left-list .more { padding: 9px 12px; }
 
 .input-wrap { position: relative; margin: 14px 0 26px; }
