@@ -248,13 +248,21 @@ function Result({ answer, won, guesses, mode, day }) {
   async function share() {
     const text = shareText({ mode, key: day, guesses, answer, won, url: location.host })
     try {
-      if (navigator.share && matchMedia('(pointer: coarse)').matches) await navigator.share({ text })
-      else {
-        await navigator.clipboard.writeText(text)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 1800)
-      }
-    } catch { /* cancelled */ }
+      await navigator.clipboard.writeText(text)
+    } catch {
+      // Older browsers: copy via a hidden textarea.
+      const ta = document.createElement('textarea')
+      ta.value = text
+      ta.setAttribute('readonly', '')
+      ta.style.position = 'fixed'
+      ta.style.opacity = '0'
+      document.body.appendChild(ta)
+      ta.select()
+      document.execCommand('copy')
+      ta.remove()
+    }
+    setCopied(true)
+    setTimeout(() => setCopied(false), 1800)
   }
 
   return (
