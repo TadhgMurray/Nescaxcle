@@ -101,6 +101,8 @@ def parse_roster(page):
             m = re.search(r'href="(/athlete/[a-z0-9]+)">([^<]+)</a>', row)
             if not m or len(cells) < 4:
                 continue
+            if html.unescape(m.group(2)).strip().lower() == "deleted athlete":
+                continue
             grade = text(cells[2])
             rating = text(cells[3])
             out.append({
